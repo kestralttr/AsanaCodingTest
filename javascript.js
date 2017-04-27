@@ -2,11 +2,12 @@ let tasks;
 let taskItem;
 let taskItemText;
 let taskHideButton;
+let showAllButton;
 let project;
 let projectName;
 let projectID = "329693362346934";
 let taskLink;
-
+let lastTaskItem;
 
 const getProjectName = function() {
   $.ajax({
@@ -28,6 +29,10 @@ const getProjectName = function() {
   });
 };
 
+let hideTaskItem = function(el) {
+  el.style.display = "none";
+};
+
 const getTasks = function() {
   $.ajax({
     type: "GET",
@@ -45,6 +50,9 @@ const getTasks = function() {
         taskItem = "<li class='task-item'>" + "</li>";
         $("#task-list").append(taskItem);
 
+        lastTaskItem = $(".task-item:last");
+        console.log(lastTaskItem);
+
         taskHideButton = "<div class='task-hide-button'></div>";
         $(".task-item:last").append(taskHideButton);
 
@@ -54,6 +62,29 @@ const getTasks = function() {
         $(".task-item:last").append(taskItemText);
 
       });
+
+      taskItem = "<li class='task-item show-all-button-container'>" + "</li>";
+      $("#task-list").append(taskItem);
+
+      showAllButton = "<div id='show-all-button'>Show All</div>";
+      $(".task-item:last").append(showAllButton);
+
+      let taskButtonClick = function() {
+        $(".task-hide-button").click(function() {
+          console.log(this);
+          $(this).parent().css("display","none");
+        });
+      };
+
+      let showButtonClick = function() {
+        $("#show-all-button").click(function() {
+          $(".task-item").css('display','block');
+        });
+      };
+
+      taskButtonClick();
+      showButtonClick();
+
     }
   });
 };
