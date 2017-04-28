@@ -1,21 +1,54 @@
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 18px;
+  color: #1B2432;
+}
+
+#logo {
+  position: absolute;
+  top:15px;
+  left:15px;
+  width: 50px;
+  height: 10px;
+  background: url('images/logo.png') no-repeat center;
+  background-size: contain;
 }
 
 #project-title {
-  font-size:2.85em;
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:36px;
+  font-size:1.5em;
   border-bottom: 1px solid #B9BCC0;
   box-shadow: 0px 3px 2px #B9BCC0;
   text-align: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  overflow: hidden;
+}
+
+@-webkit-keyframes pulse {
+  0% {color: #1B2432;}
+  50% {color: #FC636B;}
+  100% {color: #1B2432;}
+}
+
+@keyframes pulse {
+  0% {color: #1B2432;}
+  50% {color: #FC636B;}
+  100% {color: #1B2432;}
+}
+
+.loading {
+  animation: pulse 1s infinite;
 }
 
 #list-container {
   /*border:1px solid purple;*/
   position: fixed;
-  top:115px;
+  top:100px;
   left:0;
   right:0;
   bottom:0;
@@ -39,15 +72,31 @@ body {
   height:40px;
   border-bottom: 1px solid #E1E2E4;
   overflow: hidden;
+  background-color: white;
 }
 
 .task-hide-button {
   width:10px;
   height:10px;
-  background-color: red;
   position: absolute;
-  top:15px;
+  top:14px;
   left:10px;
+  border-radius: 50%;
+  border:2px solid #A1A4AA;
+
+  box-shadow: 0 0 0 white;
+  transition-property: border box-shadow;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  background-color: white;
+}
+
+.task-hide-button:hover {
+  border:2px solid #3BF7D1;
+  box-shadow: 0 0 6px #3BF7D1;
+  transition-property: border box-shadow;
+  transition-duration: 0.3s;
+  cursor: pointer;
 }
 
 .task-item-text {
@@ -58,13 +107,41 @@ body {
   bottom:0;
   width: auto;
   line-height: 40px;
+  transition-property: color;
+  transition-duration: 0.2s;
 }
 
 .show-all-button-container {
-  text-align: center;
   border: 0px solid white;
+  height: 80px;
 }
 
 #show-all-button {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 20px;
+  /*line-height: 40px;*/
+  width: 80px;
+  padding:10px;
+  border:2px solid #6A67CE;
+  color: #6A67CE;
+  border-radius: 5px;
+  box-shadow: 0 0 0 white;
+  transition-property: color border box-shadow;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+#show-all-button:hover {
+  box-shadow: 0 0 4px #A177FF;
+  color: #A177FF;
+  border:2px solid #A177FF;
+  transition-property: color border box-shadow;
+  transition-duration: 0.3s;
+}
+
+.error-message {
+  color:#E63B3B;
   line-height: 40px;
+  padding-left: 20px;
 }

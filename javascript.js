@@ -9,6 +9,7 @@ let projectID = "329693362346934";
 let taskLink;
 let lastTaskItem;
 
+// AJAX request to receive name of Project from API via ProjectID
 const getProjectName = function() {
   $.ajax({
     type: "GET",
@@ -24,15 +25,13 @@ const getProjectName = function() {
       projectName = project.data.name;
 
       $("#project-title").html(projectName);
+      $("#project-title").removeClass("loading");
 
     }
   });
 };
 
-let hideTaskItem = function(el) {
-  el.style.display = "none";
-};
-
+// AJAX request to receive task data in JSON format
 const getTasks = function() {
   $.ajax({
     type: "GET",
@@ -47,11 +46,11 @@ const getTasks = function() {
       tasks = result;
       tasks.data.forEach(function(task,idx) {
 
+        //jQuery used to build out tasks as list items
         taskItem = "<li class='task-item'>" + "</li>";
         $("#task-list").append(taskItem);
 
         lastTaskItem = $(".task-item:last");
-        console.log(lastTaskItem);
 
         taskHideButton = "<div class='task-hide-button'></div>";
         $(".task-item:last").append(taskHideButton);
@@ -63,19 +62,21 @@ const getTasks = function() {
 
       });
 
+      // Show All button added to allow for retrieval of hidden tasks
       taskItem = "<li class='task-item show-all-button-container'>" + "</li>";
       $("#task-list").append(taskItem);
 
       showAllButton = "<div id='show-all-button'>Show All</div>";
       $(".task-item:last").append(showAllButton);
 
+      // Sets display to none for task list item when button is clicked
       let taskButtonClick = function() {
         $(".task-hide-button").click(function() {
-          console.log(this);
           $(this).parent().css("display","none");
         });
       };
 
+      // Resets all task list item display values to 'block' on click
       let showButtonClick = function() {
         $("#show-all-button").click(function() {
           $(".task-item").css('display','block');
@@ -85,6 +86,11 @@ const getTasks = function() {
       taskButtonClick();
       showButtonClick();
 
+    },
+    error: function(error) {
+      // Shows an error message if AJAX request fails
+      taskItem = "<li class='task-item error-message'>" + "Error: " + error.responseJSON.errors[0].message + "</li>";
+      $("#task-list").append(taskItem);
     }
   });
 };
